@@ -1,0 +1,166 @@
+---
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction.astro";
+import Testimonial from "@/partials/Testimonial.astro";
+import type { Button, Feature } from "@/types";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+// Import untuk blog
+import BlogCard from "@/components/BlogCard.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import { FaCheck } from "react-icons/fa";
+
+
+const BLOG_FOLDER = "blog";
+
+// Ambil data homepage seperti sebelumnya
+interface Homepage {
+  banner: {
+    title: string;
+    content: string;
+    images: string[];
+    button: Button;
+  };
+  features: Feature[];
+}
+
+const homepage = (await getEntry("homepage", "-index")) as CollectionEntry<"homepage">;
+const testimonial = (await getEntry("testimonialSection", "testimonial")) as CollectionEntry<"testimonialSection">;
+const call_to_action = (await getEntry("ctaSection", "call-to-action")) as CollectionEntry<"ctaSection">;
+
+const { banner, features } = homepage.data as Homepage;
+
+// Ambil postingan blog dan urutkan berdasarkan tanggal
+const posts = await getSinglePage(BLOG_FOLDER);
+const sortedPosts = sortByDate(posts);
+// Misalnya, tampilkan 3 postingan terbaru
+const latestPosts = sortedPosts.slice(0, 3);
+---
+
+<Base>
+  <!-- Banner dengan Carousel Sederhana -->
+  <section class="section pt-14">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-7 md:col-9 mb-8 text-center">
+          <h1 set:html={markdownify(banner.title)} class="mb-4 text-h3 lg:text-h1" />
+          <p set:html={markdownify(banner.content)} class="mb-8" />
+          {banner.button.enable && (
+            <a
+              class="btn btn-primary"
+              href={banner.button.link}
+              target={banner.button.link.startsWith("http") ? "_blank" : "_self"}
+              rel="noopener"
+            >
+              {banner.button.label}
+            </a>
+          )}
+        </div>
+        <div class="col-12 relative">
+          <!-- Carousel Container -->
+          <div class="carousel-container overflow-hidden relative" style="height: 500px;">
+            {banner.images.map((img, index) => (
+              <div
+                class="carousel-slide absolute top-0 left-0 transition-opacity duration-3000"
+                style={`width: 100%; height: 100%; opacity: ${index === 0 ? 1 : 0};`}
+                data-index={index}
+              >
+                <img src={img} alt="banner" loading="lazy" class="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+          <!-- Tombol Navigasi -->
+          <button class="carousel-prev absolute left-4 top-1/2 transform -translate-y-1/2 text-white px-3 py-2">⏮️</button>
+          <button class="carousel-next absolute right-4 top-1/2 transform -translate-y-1/2 text-white px-3 py-2">⏭️</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Banner -->
+
+  <!-- Features -->
+  {features.map((feature, index: number) => (
+    <section class={`section-sm ${index % 2 === 0 ? "bg-gradient" : ""}`}>
+      <div class="container">
+        <div class="row items-center justify-between">
+          <div class={`mb:md-0 mb-6 md:col-5 ${index % 2 === 0 ? "md:order-2" : ""}`}>
+            <img src={feature.image} alt={feature.title} loading="lazy" style="width: 70%; height: auto;" />
+          </div>
+          <div class={`md:col-7 lg:col-6 ${index % 2 === 0 ? "md:order-1" : ""}`}>
+            <h2 set:html={markdownify(feature.title)} class="mb-4" />
+            <p set:html={markdownify(feature.content)} class="mb-8 text-lg text-justify" />
+            <ul>
+              {feature.bulletpoints.map((bullet: string) => (
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className="absolute left-0 top-1.5" />
+                  <span set:html={markdownify(bullet)} />
+                </li>
+              ))}
+            </ul>
+            {feature.button.enable && (
+              <a class="btn btn-primary mt-5" href={feature.button.link}>
+                {feature.button.label}
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+  <!-- /Features -->
+
+  <!-- Blog Posts Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center mb-8">Informasi Terbaru</h2>
+      <div class="row">
+        {latestPosts.map((post) => (
+          <div class="mb-14 md:col-4">
+            <BlogCard data={post} />
+          </div>
+        ))}
+      </div>
+      <div class="text-center">
+        <a href="/blog" class="btn btn-primary">Lihat Semua Postingan</a>
+      </div>
+    </div>
+  </section>
+  <!-- /Blog Posts Section -->
+
+  <Testimonial testimonial={testimonial} />
+  <CallToAction call_to_action={call_to_action} />
+
+  <!-- Script Carousel Sederhana -->
+  <script is:inline>
+    const slides = document.querySelectorAll('.carousel-slide');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    const nextBtn = document.querySelector('.carousel-next');
+    const prevBtn = document.querySelector('.carousel-prev');
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.style.opacity = i === index ? '1' : '0';
+      });
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      showSlide(currentIndex);
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      showSlide(currentIndex);
+    });
+
+    // Autoplay tiap 3 detik
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      showSlide(currentIndex);
+    }, 3000);
+  </script>
+</Base>

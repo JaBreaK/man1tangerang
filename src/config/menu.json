@@ -1,0 +1,170 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Profile",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Identitas Sekolah",
+          "url": "/identitas"
+        },
+        {
+          "name": "Sarana dan Prasarana",
+          "url": "/blog"
+        },
+        {
+          "name": "Visi, Misi, dan Tujuan",
+          "url": "/authors"
+        },
+        {
+          "name": "Sejarah Sekolah",
+          "url": "/categories"
+        }
+      ]
+    },
+    {
+      "name": "Program",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Kurikulum",
+          "url": "/contact"
+        },
+        {
+          "name": "Pembiasaan",
+          "url": "/blog"
+        },
+        {
+          "name": "Pembelajaran",
+          "url": "/authors"
+        },
+        {
+          "name": "Program Ekstrakurikuler",
+          "url": "/categories"
+        }
+      ]
+    },
+    
+    
+    
+    {
+      "name": "Informasi",
+      "url": "/blog"
+    },
+    {
+      "name": "Kontak",
+      "url": "/contact"
+    },
+    
+    
+    {
+      "name": "Lainnya",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Contact",
+          "url": "/contact"
+        },
+        {
+          "name": "About",
+          "url": "/about"
+        },
+        {
+          "name": "Blog",
+          "url": "/blog"
+        },
+        {
+          "name": "Authors",
+          "url": "/authors"
+        },
+        {
+          "name": "Categories",
+          "url": "/categories"
+        },
+        {
+          "name": "Tags",
+          "url": "/tags"
+        },
+        {
+          "name": "404 Page",
+          "url": "/404"
+        },
+        {
+          "name": "Elements",
+          "url": "/elements"
+        },
+        {
+          "name": "Kegiatan Sekolah",
+          "url": "",
+          "hasChildren": true,
+          "children": [
+            {
+              "name": "Agenda Sekolah",
+              "url": "/contact"
+            }
+          ]
+        },
+        {
+          "name": "Galeri",
+          "url": "",
+          "hasChildren": true,
+          "children": [
+            {
+              "name": "Galeri Foto",
+              "url": "/contact"
+            },
+            {
+              "name": "Galeri Video",
+              "url": "/blog"
+            },
+            {
+              "name": "File Download",
+              "url": "/authors"
+            }
+          ]
+        },
+        {
+          "name": "SDM",
+          "url": "",
+          "hasChildren": true,
+          "children": [
+            {
+              "name": "Pimpinan",
+              "url": "/contact"
+            },
+            {
+              "name": "Staf Guru/Pengajar",
+              "url": "/blog"
+            },
+            {
+              "name": "Staf Pegawai lain",
+              "url": "/authors"
+            }
+          ]
+        },
+        {
+          "name":"Fasilitas",
+          "url":""
+        }
+        
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "name": "Elements",
+      "url": "/elements"
+    },
+    {
+      "name": "Privacy Policy",
+      "url": "/privacy-policy"
+    }
+  ]
+}
