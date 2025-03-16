@@ -144,10 +144,10 @@ const { pathname } = Astro.url;
   </nav>
 </header>
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", function () {
+  function setupDropdownMenu() {
     document.querySelectorAll(".nav-dropdown > .nav-link").forEach((menu) => {
       menu.addEventListener("click", function (event) {
-        event.stopPropagation(); // Mencegah event bubbling
+        event.stopPropagation();
 
         let parent = this.parentElement;
         let dropdown = parent.querySelector(".nav-dropdown-list");
@@ -160,7 +160,7 @@ const { pathname } = Astro.url;
           }
         });
 
-        // Toggle class active untuk menampilkan/menyembunyikan dropdown
+        // Toggle dropdown
         parent.classList.toggle("active");
         dropdown.classList.toggle("hidden");
       });
@@ -175,5 +175,9 @@ const { pathname } = Astro.url;
         }
       });
     });
-  });
+  }
+
+  document.addEventListener("astro:after-swap", setupDropdownMenu);
+  document.addEventListener("DOMContentLoaded", setupDropdownMenu);
 </script>
+
