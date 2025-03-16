@@ -143,3 +143,37 @@ const { pathname } = Astro.url;
     </div>
   </nav>
 </header>
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".nav-dropdown > .nav-link").forEach((menu) => {
+      menu.addEventListener("click", function (event) {
+        event.stopPropagation(); // Mencegah event bubbling
+
+        let parent = this.parentElement;
+        let dropdown = parent.querySelector(".nav-dropdown-list");
+
+        // Tutup dropdown lain sebelum membuka yang baru
+        document.querySelectorAll(".nav-dropdown").forEach((item) => {
+          if (item !== parent) {
+            item.classList.remove("active");
+            item.querySelector(".nav-dropdown-list").classList.add("hidden");
+          }
+        });
+
+        // Toggle class active untuk menampilkan/menyembunyikan dropdown
+        parent.classList.toggle("active");
+        dropdown.classList.toggle("hidden");
+      });
+    });
+
+    // Tutup dropdown saat klik di luar menu
+    document.addEventListener("click", function (event) {
+      document.querySelectorAll(".nav-dropdown").forEach((item) => {
+        if (!item.contains(event.target)) {
+          item.classList.remove("active");
+          item.querySelector(".nav-dropdown-list").classList.add("hidden");
+        }
+      });
+    });
+  });
+</script>

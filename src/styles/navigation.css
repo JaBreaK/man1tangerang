@@ -30,9 +30,11 @@
   @apply pointer-events-none;
 }
 
+
 .nav-dropdown.active .nav-dropdown-list {
-  @apply block;
+  @apply block opacity-100 visible lg:opacity-0 lg:invisible;
 }
+
 
 .nav-dropdown-list {
   @apply bg-body dark:bg-darkmode-body z-10 min-w-[180px] rounded p-4 shadow-sm hidden lg:invisible lg:absolute lg:block lg:opacity-0;

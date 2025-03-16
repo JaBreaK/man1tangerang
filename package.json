@@ -6,7 +6,7 @@
   "license": "MIT",
   "packageManager": "yarn@1.22.22",
   "scripts": {
-    "dev": "yarn generate-json && astro dev",
+    "dev": "yarn generate-json && astro dev --host",
     "build": "yarn generate-json && astro build",
     "preview": "astro preview",
     "check": "astro check",

@@ -6,7 +6,7 @@
     },
     {
       "name": "Profile",
-      "url": "",
+      "url": "#",
       "hasChildren": true,
       "children": [
         {
@@ -65,7 +65,7 @@
     
     {
       "name": "Lainnya",
-      "url": "",
+      "url": "/",
       "hasChildren": true,
       "children": [
         {
